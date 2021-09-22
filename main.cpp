@@ -3,48 +3,98 @@
 #include <string>
 #include <vector>
 using namespace std;
-struct strBill{
+struct list{
     string name = "";
-    int salary = 0;
     string date = "";
+    int salary = 0;
 };
-void addNote(fstream& file, strBill& note){
-    int length_name = note.name.length();
-    file.write(note.name.c_str(), length_name);
-    int length_date = note.date.length();
-    file.write(note.date.c_str(), length_date);
-    file.write((char*) &note.salary, sizeof(note.salary));
+void addList(fstream &reg,vector<list> &vecList){
+    list to_list;
+    string stop;
+    while(stop != "q") {
+        vecList.push_back(to_list);
+        int i_vec = vecList.size() - 1;
+        //Full name
+        string fullName;
+        string F_name;
+        string L_name;
+        cout << "Enter first name\n";
+        cin >> F_name;
+        cout << "Enter last name\n";
+        cin >> L_name;
+        fullName += F_name + " " + L_name;
+        //date
+        vecList[i_vec].name = fullName;
+        cout << "Enter date\n";
+        cin >> vecList[i_vec].date;
+        //salary
+        cout << "Enter salary\n";
+        cin >> vecList[i_vec].salary;
+        //addList(reg, vecList);
+        cout << "add more ?";
+        cin >> stop;
+    }
+    //chek
+    cout << "size vec :" << vecList.size() << endl;
+    for (int i = 0; i < vecList.size(); i++){
+        cout << vecList[i].name << " " << vecList[i].salary << " " << vecList[i].date << endl;
+    }
+    // added struct to file
+    int lenVec = vecList.size();
+    reg.write((char*) &lenVec, sizeof(lenVec));
+    for (int i = 0; i < vecList.size(); i++) {
+        int lenName = vecList[i].name.length();
+        int lenDate = vecList[i].date.length();
+        reg.write((char *) &lenName, sizeof(lenName));
+        reg.write(vecList[i].name.c_str(), lenName);
+        reg.write((char *) &lenDate, sizeof(lenDate));
+        reg.write(vecList[i].date.c_str(), lenDate);
+        reg.write((char *) &vecList[i].salary, sizeof(vecList[i].salary));
+    }
+    reg.close();
 }
-void addVecBill(vector<strBill> &vecBill){
-    strBill noteBill;
-    vecBill.push_back(noteBill);
-    int indexVec = vecBill.size() - 1;
-    cout << "Enter name :\n";
-    getline(cin,vecBill[indexVec].name, '\n');
-    cout << "Enter salary :\n";
-    cin >> vecBill[indexVec].salary;
-    cout << "Enter date :\n";
-    cin >> vecBill[indexVec].date;
+void getList(fstream &file, vector<list> &vecList){
+    int lenVec = vecList.size();
+    file.read((char*) &lenVec, sizeof(lenVec));
+    vecList.resize(lenVec);
+    for (int i = 0; i < vecList.size(); i++) {
+        int lenName;
+        int lenDate;
+        file.read((char *) &lenName, sizeof(lenName));
+        vecList[i].name.resize(lenName);
+        file.read((char*)vecList[i].name.c_str(), lenName);
+        file.read((char *) &lenDate, sizeof(lenDate));
+        vecList[i].date.resize(lenDate);
+        file.read((char*) vecList[i].date.c_str(), lenDate);
+        file.read((char *) &vecList[i].salary, sizeof(vecList[i].salary));
+    }
+    file.close();
+    // chek
+    cout << "size vec :" << vecList.size() << endl;
+    for (int i = 0; i < vecList.size(); i++){
+        cout << vecList[i].name << " " << vecList[i].salary << " " << vecList[i].date << endl;
+    }
 }
 int main() {
-    //strBill to_strBill;
-    fstream f_bills("bills.bin", ios::binary | ios::in | ios::out);
-    if (!f_bills.is_open()){
-       ofstream out("bills.bin", ios::binary);
-       cout << "File added !\n";
-   }
-    vector<strBill> vecBill;
-    string option;
-    while (option != "q"){
-        cout << "Enter option\n";
-        getline(cin , option);
-        if (option == "add"){
-            addVecBill(vecBill);
-        }
-        for (int i = 0; i < vecBill.size(); i++){
-            cout << vecBill[i].name << " " << vecBill[i].salary << " " << vecBill[i].date << endl;
-            cout << "**************************\n";
-        }
+    list to_list;
+    //getList getStr;
+    vector<list> vecList;
+    fstream reg("register.bin", ios::binary |ios::in | ios::out);
+    if (!reg.is_open()){
+        fstream reg("register.bin", ios::out | ios::trunc);
+        cout << "File created !\n";
+        reg.close();
+    }
+    string ans;
+    cin >> ans;
+    if (ans == "+") {
+        addList(reg, vecList);
+    }else if (ans == "get"){
+        getList(reg, vecList);
+    }else if (ans == "init"){
+        reg.close();
+        reg.open("register.bin", ios::binary | ios::out | ios::trunc);
+        reg.close();
     }
     return 0;
 }
