@@ -1,85 +1,100 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 using namespace std;
-struct bills{
-    string first_name;
-    string last_name;
-    string date;
-    int salary;
+struct list{
+    string name = "";
+    string date = "";
+    int salary = 0;
 };
-bills note;
-bool add_in_data(fstream &data ,string flag, char sy = ' ',string textUser = ""){
-
-    if (flag == "fullName"){
-        cout << "First name\n";
-        cin >> note.first_name;
-        cout << "Last name\n";
-        cin >> note.last_name;
-        textUser = note.first_name + " " + note.last_name;
-        for (int i = 0; i < textUser.size(); i++){
-            if (textUser[i] >= '0' && textUser[i] <= '9'){
-                std::cerr << "error format full name !\n";
-                return false;
-            }
-        }
+void addList(fstream &reg,vector<list> &vecList){
+    list to_list;
+    string stop;
+    while(stop != "q") {
+        vecList.push_back(to_list);
+        int i_vec = vecList.size() - 1;
+        //Full name
+        string fullName;
+        string F_name;
+        string L_name;
+        cout << "Enter first name\n";
+        cin >> F_name;
+        cout << "Enter last name\n";
+        cin >> L_name;
+        fullName += F_name + " " + L_name;
+        //date
+        vecList[i_vec].name = fullName;
+        cout << "Enter date\n";
+        cin >> vecList[i_vec].date;
+        //salary
+        cout << "Enter salary\n";
+        cin >> vecList[i_vec].salary;
+        //addList(reg, vecList);
+        cout << "add more ?";
+        cin >> stop;
     }
-    if (flag == "date"){
-        cin >> textUser;
-        if (textUser.size() != 10) {
-            cerr << "error is long date\n";
-            return false;
-        }
-        if (stoi(textUser.substr(0,2)) < 0 || stoi(textUser.substr(0,2)) > 31){
-            cerr << "error format date - day\n";
-            return false;
-        }
-        if (stoi(textUser.substr(3,2)) < 0 || stoi(textUser.substr(3,2)) > 12){
-            cerr << "error format date - month\n";
-            return false;
-        }
-        if (stoi(textUser.substr(6,4)) < 1999 || stoi(textUser.substr(6,4)) > 2024){
-            cerr << "error format date - year\n";
-            return false;
-        }
+    //chek
+    cout << "size vec :" << vecList.size() << endl;
+    for (int i = 0; i < vecList.size(); i++){
+        cout << vecList[i].name << " " << vecList[i].salary << " " << vecList[i].date << endl;
     }
-    if (flag == "salary"){
-        cin >> textUser;
-        for (char i : textUser){
-            if (i < '0' || i > '9'){
-                cerr << "error format salary\n";
-                return false;
-            }
-        }
+    // added struct to file
+    int lenVec = vecList.size();
+    reg.write((char*) &lenVec, sizeof(lenVec));
+    for (int i = 0; i < vecList.size(); i++) {
+        int lenName = vecList[i].name.length();
+        int lenDate = vecList[i].date.length();
+        reg.write((char *) &lenName, sizeof(lenName));
+        reg.write(vecList[i].name.c_str(), lenName);
+        reg.write((char *) &lenDate, sizeof(lenDate));
+        reg.write(vecList[i].date.c_str(), lenDate);
+        reg.write((char *) &vecList[i].salary, sizeof(vecList[i].salary));
     }
-    data << textUser << sy;
-    return true;
+    reg.close();
+}
+void getList(fstream &file, vector<list> &vecList){
+    int lenVec = vecList.size();
+    file.read((char*) &lenVec, sizeof(lenVec));
+    vecList.resize(lenVec);
+    for (int i = 0; i < vecList.size(); i++) {
+        int lenName;
+        int lenDate;
+        file.read((char *) &lenName, sizeof(lenName));
+        vecList[i].name.resize(lenName);
+        file.read((char*)vecList[i].name.c_str(), lenName);
+        file.read((char *) &lenDate, sizeof(lenDate));
+        vecList[i].date.resize(lenDate);
+        file.read((char*) vecList[i].date.c_str(), lenDate);
+        file.read((char *) &vecList[i].salary, sizeof(vecList[i].salary));
+    }
+    file.close();
+    // chek
+    cout << "size vec :" << vecList.size() << endl;
+    for (int i = 0; i < vecList.size(); i++){
+        cout << vecList[i].name << " " << vecList[i].salary << " " << vecList[i].date << endl;
+    }
 }
 int main() {
-    fstream data("register.txt", ios::in | ios::out);
-    if (!data.is_open()){
-        fstream init("register.txt", ios::out | ios::trunc);
-        init.close();
+    list to_list;
+    //getList getStr;
+    vector<list> vecList;
+    fstream reg("register.bin", ios::binary |ios::in | ios::out);
+    if (!reg.is_open()){
+        fstream reg("register.bin", ios::out | ios::trunc);
+        cout << "File created !\n";
+        reg.close();
     }
-    string stopWord;
-    string option;
-    cout << "enter option\n";
-    cin >> option;
-    if (option == "add") {
-        while (stopWord != "n") {
-            do {
-                cout << "Enter full name :\n";
-            } while (!add_in_data(data, "fullName"));
-            do {
-                cout << "Enter date :\n";
-            } while (!add_in_data(data, "date"));
-            do {
-                cout << "Enter sum salary :\n";
-            } while (!add_in_data(data, "salary", '\n'));
-            cout << "proceed ?\n";
-            cin >> stopWord;
-        }
+    string ans;
+    cin >> ans;
+    if (ans == "+") {
+        addList(reg, vecList);
+    }else if (ans == "get"){
+        getList(reg, vecList);
+    }else if (ans == "init"){
+        reg.close();
+        reg.open("register.bin", ios::binary | ios::out | ios::trunc);
+        reg.close();
     }
-    data.close();
     return 0;
 }
