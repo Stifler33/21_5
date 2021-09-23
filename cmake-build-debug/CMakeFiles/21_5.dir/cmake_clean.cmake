@@ -2,7 +2,7 @@ file(REMOVE_RECURSE
   "21_5.exe"
   "21_5.exe.manifest"
   "21_5.pdb"
-  "CMakeFiles/21_5.dir/main.cpp.obj"
+  "CMakeFiles/21_5.dir/task2.cpp.obj"
   "lib21_5.dll.a"
 )
 

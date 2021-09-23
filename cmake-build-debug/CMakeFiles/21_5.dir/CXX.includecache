@@ -6,13 +6,11 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/bagi3/CLionProjects/21_5/main.cpp
+C:/Users/bagi3/CLionProjects/21_5/task2.cpp
 iostream
 -
-fstream
+vector
 -
 string
--
-vector
 -
 

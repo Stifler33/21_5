@@ -128,29 +128,29 @@ depend:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\21_5.dir\build.make CMakeFiles/21_5.dir/build
 .PHONY : 21_5/fast
 
-main.obj: main.cpp.obj
-.PHONY : main.obj
+task2.obj: task2.cpp.obj
+.PHONY : task2.obj
 
 # target to build an object file
-main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\21_5.dir\build.make CMakeFiles/21_5.dir/main.cpp.obj
-.PHONY : main.cpp.obj
+task2.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\21_5.dir\build.make CMakeFiles/21_5.dir/task2.cpp.obj
+.PHONY : task2.cpp.obj
 
-main.i: main.cpp.i
-.PHONY : main.i
+task2.i: task2.cpp.i
+.PHONY : task2.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\21_5.dir\build.make CMakeFiles/21_5.dir/main.cpp.i
-.PHONY : main.cpp.i
+task2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\21_5.dir\build.make CMakeFiles/21_5.dir/task2.cpp.i
+.PHONY : task2.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+task2.s: task2.cpp.s
+.PHONY : task2.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\21_5.dir\build.make CMakeFiles/21_5.dir/main.cpp.s
-.PHONY : main.cpp.s
+task2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\21_5.dir\build.make CMakeFiles/21_5.dir/task2.cpp.s
+.PHONY : task2.cpp.s
 
 # Help Target
 help:
@@ -161,9 +161,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... 21_5
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
+	@echo ... task2.obj
+	@echo ... task2.i
+	@echo ... task2.s
 .PHONY : help
 
 

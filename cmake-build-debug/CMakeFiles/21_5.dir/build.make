@@ -65,27 +65,27 @@ include CMakeFiles/21_5.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/21_5.dir/flags.make
 
-CMakeFiles/21_5.dir/main.cpp.obj: CMakeFiles/21_5.dir/flags.make
-CMakeFiles/21_5.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\bagi3\CLionProjects\21_5\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/21_5.dir/main.cpp.obj"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-W\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\21_5.dir\main.cpp.obj -c C:\Users\bagi3\CLionProjects\21_5\main.cpp
+CMakeFiles/21_5.dir/task2.cpp.obj: CMakeFiles/21_5.dir/flags.make
+CMakeFiles/21_5.dir/task2.cpp.obj: ../task2.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\bagi3\CLionProjects\21_5\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/21_5.dir/task2.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-W\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\21_5.dir\task2.cpp.obj -c C:\Users\bagi3\CLionProjects\21_5\task2.cpp
 
-CMakeFiles/21_5.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/21_5.dir/main.cpp.i"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-W\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\bagi3\CLionProjects\21_5\main.cpp > CMakeFiles\21_5.dir\main.cpp.i
+CMakeFiles/21_5.dir/task2.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/21_5.dir/task2.cpp.i"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-W\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\bagi3\CLionProjects\21_5\task2.cpp > CMakeFiles\21_5.dir\task2.cpp.i
 
-CMakeFiles/21_5.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/21_5.dir/main.cpp.s"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-W\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\bagi3\CLionProjects\21_5\main.cpp -o CMakeFiles\21_5.dir\main.cpp.s
+CMakeFiles/21_5.dir/task2.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/21_5.dir/task2.cpp.s"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-W\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\bagi3\CLionProjects\21_5\task2.cpp -o CMakeFiles\21_5.dir\task2.cpp.s
 
 # Object files for target 21_5
 21_5_OBJECTS = \
-"CMakeFiles/21_5.dir/main.cpp.obj"
+"CMakeFiles/21_5.dir/task2.cpp.obj"
 
 # External object files for target 21_5
 21_5_EXTERNAL_OBJECTS =
 
-21_5.exe: CMakeFiles/21_5.dir/main.cpp.obj
+21_5.exe: CMakeFiles/21_5.dir/task2.cpp.obj
 21_5.exe: CMakeFiles/21_5.dir/build.make
 21_5.exe: CMakeFiles/21_5.dir/linklibs.rsp
 21_5.exe: CMakeFiles/21_5.dir/objects1.rsp
