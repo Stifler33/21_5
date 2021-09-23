@@ -33,7 +33,8 @@ void getList(fstream &file, vector<list> &vecList){
 }
 void addList(fstream &reg,vector<list> &vecList){
     getList(reg,vecList);
-
+    reg.open("register.bin", ios::binary | ios::out | ios::trunc);
+    reg.close();
     reg.open("register.bin", ios::binary | ios::out | ios::app);
     list to_list;
     string stop;
