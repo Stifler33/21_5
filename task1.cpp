@@ -37,12 +37,15 @@ void addList(fstream &reg,vector<list> &vecList){
     reg.close();
     reg.open("register.bin", ios::binary | ios::out | ios::app);
     list to_list;
+    int i_vec;
+    string fullName;
+    string date;
     string stop;
+    int salary;
     while(stop != "q") {
         vecList.push_back(to_list);
-        int i_vec = vecList.size() - 1;
+        i_vec = vecList.size() - 1;
         //Full name
-        string fullName;
         string F_name;
         string L_name;
         cout << "Enter first name\n";
@@ -50,14 +53,41 @@ void addList(fstream &reg,vector<list> &vecList){
         cout << "Enter last name\n";
         cin >> L_name;
         fullName += F_name + " " + L_name;
+        for (int i = 0; i < fullName.size(); i++){
+            if (fullName[i] >= '0' && fullName[i] <= '9'){
+                std::cerr << "error format full name !\n";
+                return;
+            }
+        }
         //date
-        vecList[i_vec].name = fullName;
         cout << "Enter date\n";
-        cin >> vecList[i_vec].date;
+        cin >> date;
+        if (date.size() != 10) {
+            std::cerr << "error is long date\n";
+            return;
+        }
+        if (std::stoi(date.substr(0,2)) < 0 || std::stoi(date.substr(0,2)) > 31){
+            std::cerr << "error format date - day\n";
+            return ;
+        }
+        if (std::stoi(date.substr(3,2)) < 0 || std::stoi(date.substr(3,2)) > 12){
+            std::cerr << "error format date - month\n";
+            return ;
+        }
+        if (std::stoi(date.substr(6,4)) < 1999 || std::stoi(date.substr(6,4)) > 2024){
+            std::cerr << "error format date - year\n";
+            return ;
+        }
         //salary
         cout << "Enter salary\n";
-        cin >> vecList[i_vec].salary;
-        //addList(reg, vecList);
+        cin >> salary;
+        if (salary < 0 || salary > INT32_MAX) {
+            cout << "Error format salary\n";
+            return;
+        }
+        vecList[i_vec].name = fullName;
+        vecList[i_vec].date = date;
+        vecList[i_vec].salary = salary;
         cout << "add more ?";
         cin >> stop;
     }
@@ -83,7 +113,6 @@ void addList(fstream &reg,vector<list> &vecList){
 
 int main() {
     list to_list;
-    //getList getStr;
     vector<list> vecList;
     fstream reg("register.bin", ios::binary |ios::in | ios::out);
     if (!reg.is_open()){
@@ -92,6 +121,7 @@ int main() {
         reg.close();
     }
     string ans;
+    cout << "enter option\n";
     cin >> ans;
     if (ans == "+") {
         reg.close();

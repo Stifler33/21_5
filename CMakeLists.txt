@@ -3,4 +3,4 @@ project(21_5)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(21_5 main.cpp)
+add_executable(21_5 task1.cpp)
