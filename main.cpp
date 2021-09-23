@@ -8,7 +8,33 @@ struct list{
     string date = "";
     int salary = 0;
 };
+void getList(fstream &file, vector<list> &vecList){
+    file.open("register.bin", ios::binary | ios::in);
+    int lenVec = vecList.size();
+    file.read((char*) &lenVec, sizeof(lenVec));
+    vecList.resize(lenVec);
+    for (int i = 0; i < vecList.size(); i++) {
+        int lenName;
+        int lenDate;
+        file.read((char *) &lenName, sizeof(lenName));
+        vecList[i].name.resize(lenName);
+        file.read((char*)vecList[i].name.c_str(), lenName);
+        file.read((char *) &lenDate, sizeof(lenDate));
+        vecList[i].date.resize(lenDate);
+        file.read((char*) vecList[i].date.c_str(), lenDate);
+        file.read((char *) &vecList[i].salary, sizeof(vecList[i].salary));
+    }
+    file.close();
+    // chek
+    cout << "size vec :" << vecList.size() << endl;
+    for (int i = 0; i < vecList.size(); i++){
+        cout << vecList[i].name << " " << vecList[i].salary << " " << vecList[i].date << endl;
+    }
+}
 void addList(fstream &reg,vector<list> &vecList){
+    getList(reg,vecList);
+
+    reg.open("register.bin", ios::binary | ios::out | ios::app);
     list to_list;
     string stop;
     while(stop != "q") {
@@ -53,28 +79,7 @@ void addList(fstream &reg,vector<list> &vecList){
     }
     reg.close();
 }
-void getList(fstream &file, vector<list> &vecList){
-    int lenVec = vecList.size();
-    file.read((char*) &lenVec, sizeof(lenVec));
-    vecList.resize(lenVec);
-    for (int i = 0; i < vecList.size(); i++) {
-        int lenName;
-        int lenDate;
-        file.read((char *) &lenName, sizeof(lenName));
-        vecList[i].name.resize(lenName);
-        file.read((char*)vecList[i].name.c_str(), lenName);
-        file.read((char *) &lenDate, sizeof(lenDate));
-        vecList[i].date.resize(lenDate);
-        file.read((char*) vecList[i].date.c_str(), lenDate);
-        file.read((char *) &vecList[i].salary, sizeof(vecList[i].salary));
-    }
-    file.close();
-    // chek
-    cout << "size vec :" << vecList.size() << endl;
-    for (int i = 0; i < vecList.size(); i++){
-        cout << vecList[i].name << " " << vecList[i].salary << " " << vecList[i].date << endl;
-    }
-}
+
 int main() {
     list to_list;
     //getList getStr;
@@ -88,8 +93,10 @@ int main() {
     string ans;
     cin >> ans;
     if (ans == "+") {
+        reg.close();
         addList(reg, vecList);
     }else if (ans == "get"){
+        reg.close();
         getList(reg, vecList);
     }else if (ans == "init"){
         reg.close();
