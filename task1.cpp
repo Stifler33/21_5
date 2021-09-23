@@ -123,10 +123,10 @@ int main() {
     string ans;
     cout << "enter option\n";
     cin >> ans;
-    if (ans == "+") {
+    if (ans == "add") {
         reg.close();
         addList(reg, vecList);
-    }else if (ans == "get"){
+    }else if (ans == "list"){
         reg.close();
         getList(reg, vecList);
     }else if (ans == "init"){
