@@ -29,50 +29,56 @@ void addArea(vector<area> &vecArea, struct area){
     home Home;
     //added area
     vecArea.push_back(Area);
-    cout << "Numb area\n";
-    cin >> vecArea[0].numbArea;
-    // added number builds
-    cout << "how many buildings ?\n";
-    int numb_home;
-    cin >> numb_home;
-    Area.v_Home.resize(numb_home);
-    for (int i = 0; i < Area.v_Home.size(); i++) {
-        // added name builds
-        cout << "type building " << i + 1 << endl;
-        cin >> Area.v_Home[i].type;
-        // added square builds
-        cout << "square " << Area.v_Home[i].type << endl;
-        cin >> Area.v_Home[i].square;
-        // if type home then enter pipe
-        if (Area.v_Home[i].type == "home") {
-            cout << "Oven pipe ?\n";
-            string ansver;
-            cin >> ansver;
-            if (ansver == "yes") {
-                vecArea[i].v_Home[i].ovenPipe = true;
+    cout << "Number area\n";
+    int numberArea;
+    cin >> numberArea;
+    vecArea.resize(numberArea);
+    for (int a = 0 ; a < numberArea; a++){
+        // added number builds
+        cout << "how many buildings ?\n";
+        int numb_home;
+        cin >> numb_home;
+        vecArea[a].v_Home.resize(numb_home);
+        for (int h = 0; h < vecArea[a].v_Home.size(); h++) {
+            // added name builds
+            cout << "type building " << a + 1 << endl;
+            cin >> vecArea[a].v_Home[h].type;
+            // added square builds
+            cout << "square " << vecArea[a].v_Home[h].type << endl;
+            cin >> vecArea[a].v_Home[h].square;
+            // if type home then enter pipe
+            if (vecArea[a].v_Home[h].type == "home") {
+                cout << "Oven pipe ?\n";
+                string ansver;
+                cin >> ansver;
+                if (ansver == "yes") {
+                    vecArea[a].v_Home[h].ovenPipe = true;
+                }
+            }
+            // added floor
+            cout << "number floor " << vecArea[a].v_Home[h].type << endl;
+            int numberFloor;
+            cin >> numberFloor;
+            vecArea[a].v_Home[h].v_Floor.resize(numberFloor);
+            // added ceiling floor
+            for (int f = 0; f < numberFloor; f++){
+                cout << "ceiling floor " << f + 1 << endl;
+                cin >> vecArea[a].v_Home[h].v_Floor[f].h_ceiling;
+                // added number room
+                cout << "number of rooms per floor " << f + 1 << endl;
+                int numbRoom;
+                cin >> numbRoom;
+                vecArea[a].v_Home[h].v_Floor[f].v_Room.resize(numberFloor);
+                // added name room
+                for (int r = 0; r < numbRoom; r++){
+                    cout << "enter type room " << r+1 << endl;
+                    cin >> vecArea[a].v_Home[h].v_Floor[f].v_Room[r].nameRoom;
+                }
             }
         }
-        // added floor
-        cout << "number floor " << Area.v_Home[i].type << endl;
-        int numberFloor;
-        cin >> numberFloor;
-        Area.v_Home[i].v_Floor.resize(numberFloor);
-        // added ceiling floor
-        for (int i = 0; i < numberFloor - 1; i++){
-            cout << "ceiling floor " << i + 1 << endl;
-            cin >> Area.v_Home[i].v_Floor[i].h_ceiling;
-            // added number room
-            cout << "number of rooms per floor " << i + 1 << endl;
-            int numbRoom;
-            cin >> numbRoom;
-            Area.v_Home[i].v_Floor[i].v_Room.resize(numberFloor);
-        }
-        // added name room
-        for (int i = 0; i < Area.v_Home[i].v_Floor[i].v_Room.size(); i++){
-            cout << "enter type room " << i+1 << endl;
-            cin >> Area.v_Home[i].v_Floor[i].v_Room[i].nameRoom;
-        }
     }
+
+
 
 }
 int main(){
@@ -82,8 +88,22 @@ int main(){
     room Room;
     vector<area> vecArea;
     addArea(vecArea, Area);
-    cout << "Added string\n";
-    addArea(vecArea, Area);
-    cout << Area.numbArea;
+    for (int a = 0; a < vecArea.size(); a++){
+        cout << "numbers area " << a+1 << endl;
+        for (int h = 0; h < vecArea[a].v_Home.size(); h++) {
+            cout << "  parameter home " << h+1 << endl;
+            cout << "  " << "type " << vecArea[a].v_Home[h].type << endl;
+            cout << "  " << "square " << vecArea[a].v_Home[h].square << endl;
+            cout << "  " << "ovenPipe " << vecArea[a].v_Home[h].ovenPipe << endl;
+            for (int f = 0; f < vecArea[a].v_Home[h].v_Floor.size(); f++){
+                cout << "   " << "parameter floor " << f+1 << endl;
+                cout << "   " << "ceiling " << vecArea[a].v_Home[h].v_Floor[f].h_ceiling << endl;
+                for (int r = 0; r < vecArea[a].v_Home[h].v_Floor[f].v_Room.size(); r++){
+                    cout << "   " << "room " << r+1 << " " << vecArea[a].v_Home[h].v_Floor[f].v_Room[r].nameRoom << endl;
+                }
+            }
+        }
+    }
+
     return 0;
 }
