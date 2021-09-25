@@ -35,13 +35,13 @@ void addArea(vector<area> &vecArea, struct area){
     vecArea.resize(numberArea);
     for (int a = 0 ; a < numberArea; a++){
         // added number builds
-        cout << "how many buildings ?\n";
+        cout << "how many buildings on " << a << " area ?\n";
         int numb_home;
         cin >> numb_home;
         vecArea[a].v_Home.resize(numb_home);
-        for (int h = 0; h < vecArea[a].v_Home.size(); h++) {
+        for (int h = 0; h < numb_home; h++) {
             // added name builds
-            cout << "type building " << a + 1 << endl;
+            cout << "type building " << h + 1 << endl;
             cin >> vecArea[a].v_Home[h].type;
             // added square builds
             cout << "square " << vecArea[a].v_Home[h].type << endl;
@@ -68,7 +68,7 @@ void addArea(vector<area> &vecArea, struct area){
                 cout << "number of rooms per floor " << f + 1 << endl;
                 int numbRoom;
                 cin >> numbRoom;
-                vecArea[a].v_Home[h].v_Floor[f].v_Room.resize(numberFloor);
+                vecArea[a].v_Home[h].v_Floor[f].v_Room.resize(numbRoom);
                 // added name room
                 for (int r = 0; r < numbRoom; r++){
                     cout << "enter type room " << r+1 << endl;
