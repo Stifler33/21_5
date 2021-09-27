@@ -59,6 +59,13 @@ struct person{
     five Five;
     user User;
 };
+struct enemy{
+    string name = "Enemy_#";
+    int hp;
+    int damage;
+    int armor;
+    int crd[2];
+};
 //init Enemy
 void initEnemy(person &Person){
     // init HP
@@ -135,7 +142,7 @@ int main(){
     srand(time(nullptr));
     getRandNumb(2,7);
     person Person;
-
+    enemy Enemy[5];
     cout << "Enter name player\n";
     cin >> Person.User.name;
     cout << "How many HP ?(50-150)\n";
