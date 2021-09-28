@@ -11,10 +11,10 @@ int getRandNumb(int min, int max){
 }
 struct person{
     string name = "Enemy_#_";
-    int hp;
-    int damage;
-    int armor;
-    int crd[2];
+    int hp = 0;
+    int damage = 0;
+    int armor = 0;
+    int crd[2] = {0,0};
 };
 //init Enemy
 void initEnemy(person &Person){
@@ -126,8 +126,18 @@ int main(){
     // start game
     string option;
     while (option != "exit"){
-        cout << "Enter option - game, save, load, exit\n";
+        cout << "Enter option - game, load, exit\n";
         cin >> option;
+        //load
+        if (option == "load"){
+            fstream load("D:\\game\\save.bin", ios::binary | ios::in);
+            load.read((char*) Person, sizeof(Person));
+            load.close();
+            for (int i = 0; i < 6; i++){
+                cout << Person[i].name << " crd " <<Person[i].crd[0] << "," << Person[i].crd[1] <<
+                     " " << "HP " << Person[i].hp << endl;
+            }
+        }
         if (option == "game"){
             //init enemy
             for (int i = 0; i < 5; i++){
@@ -156,6 +166,14 @@ int main(){
                 }
                 cout << "Enter action\n";
                 cin >> action;
+                //save
+                if (action == "save"){
+                    fstream save("D:\\game\\save.bin", ios::binary | ios::out | ios::trunc);
+                    cout << "sizeof save " << sizeof(Person) << endl;
+                    save.write((char*) Person, sizeof(Person));
+                    return 0;
+                }
+                // game option
                 if (action == "a"){
                     if (Person[5].crd[0] > 0) Person[5].crd[0]--;
                 }else if (action == "d"){
