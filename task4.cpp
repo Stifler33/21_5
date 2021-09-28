@@ -32,38 +32,53 @@ void movPers(person *Person){
     // init coordinates crd[x,y]
     for (int i = 0; i <= 4; i++){
         Person[i].crd[0] = getRandNumb(0,maxCrd);
+        for (int j = 0; j < 5; j++){
+            getRandNumb(j*13, 254);
+        }
+
         Person[i].crd[1] = getRandNumb(0,maxCrd);
     }
 }
 void showField(person *Person){
     for (int y = maxCrd; y >= 0; y--){
-        for (int x = 0; x <= maxCrd; x++){
+        for (int x = 0; x <= maxCrd;){
             bool print = false;
             for (int i = 0; i < 6; i++){
                 if (Person[i].hp > 0 && i < 5 && Person[i].crd[0] == x && Person[i].crd[1] == y){
                     cout << "E";
                     print = true;
+                    x++;
                 }else if (i >=5 && Person[i].crd[0] == x && Person[i].crd[1] == y){
                     cout << "P";
                     print = true;
+                    x++;
                 }
             }
-            if (!print) cout << ".";
+            if (!print) {
+                cout << ".";
+                x++;
+            }
         }
         cout << endl;
     }
 }
 void analysisCourse(person *Person , string flag){
     for (int i = 0; i <= 4; i++){
-        if (Person[i].hp > 0 && Person[5].crd[0] == Person[i].crd[0] && Person[5].crd[1] == Person[i].crd[1]){
+        if (Person[i].hp > 0 && (Person[5].crd[0] == Person[i].crd[0]) && (Person[5].crd[1] == Person[i].crd[1])){
             if (flag == "user"){
                 Person[i].armor -= Person[5].damage;
-                if (Person[i].armor < 0) Person[i].hp += Person[i].armor;
+                if (Person[i].armor < 0) {
+                    Person[i].hp += Person[i].armor;
+                    if (Person[i].hp < 0) Person[i].hp = 0;
+                }
                 Person[i].armor = 0;
                 cout << "hit the player\n";
             }else if (flag == "enemy"){
                 Person[5].armor -= Person[i].damage;
-                if (Person[5].armor < 0) Person[5].hp += Person[5].armor;
+                if (Person[5].armor < 0) {
+                    Person[5].hp += Person[5].armor;
+                    if (Person[5].hp < 0) Person[5].hp = 0;
+                }
                 Person[5].armor = 0;
                 cout << "hit the enemy\n";
             }
@@ -120,9 +135,20 @@ int main(){
                 initEnemy(Person[i]);
             }
             //showField(Person);
-            cout << "Enter action - left, right, top, bottom\n" << "or exit, save\n";
+            cout << "Enter action - left - a, right - d, top - w, bottom - s\n" << "or exit, save\n";
             string action;
-            while (action != "exit"){
+            bool enemyAlive = false;
+            bool userAlive = false;
+            while (action != "exit" || enemyAlive || userAlive){
+                enemyAlive = Person[0].hp > 0 || Person[1].hp > 0 || Person[2].hp > 0 || Person[3].hp > 0 || Person[4].hp > 0;
+                userAlive = Person[5].hp > 0;
+                if (!enemyAlive){
+                    cout << "User win !\n";
+                    return 0;
+                }else if (!userAlive){
+                    cout << "enemy win !\n";
+                    return 0;
+                }
                 showField(Person);
                 for (int i = 0; i < 6; i++){
                     cout << Person[i].name << " crd " <<Person[i].crd[0] << "," << Person[i].crd[1] <<
