@@ -98,6 +98,7 @@ void saveGame(gamePerson *person){
         save.write((char*) &person[i].damage, sizeof(person[i].damage));
         save.write((char*) &person[i].crd, sizeof(person[i].crd));
     }
+    save.close();
     cout << "save game\n";
 }
 void loadGame(gamePerson *person){
@@ -112,6 +113,7 @@ void loadGame(gamePerson *person){
         load.read((char*) &person[i].damage, sizeof(person[i].damage));
         load.read((char*) &person[i].crd, sizeof(person[i].crd));
     }
+    load.close();
     cout << "game load\n";
 }
 int main(){
